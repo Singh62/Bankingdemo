@@ -1,27 +1,40 @@
 package com.bankapp.Bank.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bankapp.Bank.entity.BankAc;
 import com.bankapp.Bank.services.BankService;
 
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
 @RestController
+@RequestMapping({"/","signin"})
 public class MyController {
 	
 	@Autowired
 	private BankService t;
+	@RequestMapping(method=RequestMethod.GET)
+	public String sayhi() {
+		return "login";
+	}
 	
-	@RequestMapping({"/", "/home"})
-	public String home() {
+	@RequestMapping("/login")
+	public String home(HttpServletRequest req) {
+		String uName= req.getParameter("uname");
+		String pwd = req.getParameter("pwd");
+		if(uName.equals("john") && pwd.equals("123"))
 		return "home";
+		else return "failure";
 	}
 	
 	@GetMapping("/account")

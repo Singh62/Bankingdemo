@@ -57,26 +57,38 @@ public class BankServiceImpl implements BankService {
 	}
 	@Override
 	public void withdrawalAc(int accNo,int amt) {
-		int bal=-1;
-		if(balCheck(accNo)<amt) return ;
-		for(BankAc l: list) {
-			if(l.getAcctId()==accNo) {
-				bal=l.getBalance();
-				bal-=amt;
-				l.setBalance(bal);
-			}
+		BankAc x=r.findById(accNo).get();
+		if(x.getBalance()>amt) {
+			int bal=x.getBalance()-amt;
+			x.setBalance(bal);
 		}
+		r.save(x);
+//		int bal=-1;
+//		if(balCheck(accNo)<amt) return ;
+//		for(BankAc l: list) {
+//			if(l.getAcctId()==accNo) {
+//				bal=l.getBalance();
+//				bal-=amt;
+//				l.setBalance(bal);
+//			}
+//		}
 	}
 	@Override
 	public void depositAc(int accNo,int amt) {
-		int bal=-1;
+		BankAc x=r.findById(accNo).get();
 		
-		for(BankAc l: list) {
-			if(l.getAcctId()==accNo) {
-				bal=l.getBalance();
-				bal+=amt;
-				l.setBalance(bal);
-			}
-		}
+			int bal=x.getBalance()+amt;
+			x.setBalance(bal);
+
+			r.save(x);
+//		
+//		
+//		for(BankAc l: list) {
+//			if(l.getAcctId()==accNo) {
+//				bal=l.getBalance();
+//				bal+=amt;
+//				l.setBalance(bal);
+//			}
+//		}
 	}
 }

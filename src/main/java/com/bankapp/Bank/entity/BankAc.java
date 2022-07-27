@@ -2,8 +2,10 @@ package com.bankapp.Bank.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="BankAc")
 public class BankAc {
 	@Id
 	private int acctId;
