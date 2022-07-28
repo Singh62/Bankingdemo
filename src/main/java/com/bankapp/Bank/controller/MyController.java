@@ -27,7 +27,6 @@ public class MyController {
 	
 	@Autowired
 	private BankService t;
-	
 
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String sayhsioo() {
@@ -38,10 +37,14 @@ public class MyController {
 			return "signin";
 	}
 	
-
+	
 	@RequestMapping(value="/show")
 	public String sayhi(HttpServletRequest req,ModelMap map) {
 		String uName= req.getParameter("uname");
+		String pin = req.getParameter("pin");
+		if(!t.valid(Integer.parseInt(uName),Integer.parseInt(pin))) {
+			return "wrongway";
+		}
 		BankAc b = t.getBankAc(Integer.parseInt(uName));
 		Integer amt =b.getBalance();
 		System.out.print(amt);
@@ -50,7 +53,28 @@ public class MyController {
 		return "show";
 	}
 	
-	
+	// add user
+	@RequestMapping(value="/add",method=RequestMethod.GET)
+	public String saadd() {
+			return "add";
+	}
+	@RequestMapping(value="/success")
+	public String sayhias(HttpServletRequest req,ModelMap map) {
+		
+		Integer accNo= Integer.parseInt(req.getParameter("uname"));
+		Integer amt = Integer.parseInt(req.getParameter("amt"));
+		Integer pin = Integer.parseInt(req.getParameter("pin"));
+		String accHolder = req.getParameter("type");
+		//BankAc b = t.getBankAc(Integer.parseInt(uName));
+		BankAc b= new BankAc(accNo,amt,pin,accHolder);
+		t.addAc(b);
+		//map.addAttribute("accId","uname");
+		//Integer amt =b.getBalance();
+		//System.out.print(amt);
+		//map.addAttribute("name",uName);
+		//map.addAttribute("bal",amt.toString());
+		return "success";
+	}
 	// withdraw
 	@RequestMapping(value="/withdraw",method=RequestMethod.GET)
 	public String withdraw() {
@@ -61,6 +85,10 @@ public class MyController {
 	public String sa(HttpServletRequest req,ModelMap map) {
 		String uName= req.getParameter("uname");
 		String amt= req.getParameter("amt");
+		String pin = req.getParameter("pin");
+		if(!t.valid(Integer.parseInt(uName),Integer.parseInt(pin))) {
+			return "wrongway";
+		}
 		t.withdrawalAc(Integer.parseInt(uName),Integer.parseInt(amt));
 		BankAc b = t.getBankAc(Integer.parseInt(uName));
 		Integer amt1 =b.getBalance();
@@ -81,6 +109,10 @@ public class MyController {
 	public String depositamt(HttpServletRequest req,ModelMap map) {
 		String uName= req.getParameter("uname");
 		String amt= req.getParameter("amt");
+		String pin = req.getParameter("pin");
+		if(!t.valid(Integer.parseInt(uName),Integer.parseInt(pin))) {
+			return "wrongway1";
+		}
 		t.depositAc(Integer.parseInt(uName),Integer.parseInt(amt));
 		BankAc b = t.getBankAc(Integer.parseInt(uName));
 		Integer amt1 =b.getBalance();
@@ -95,20 +127,9 @@ public class MyController {
 		System.out.print(uName);
 		int accNo = Integer.parseInt(req.getParameter("uname"));
 		System.out.print(t.balCheck(accNo));
-		//ModelAndView mav = new ModelAndView("allaccount");
-		//mav.addObject("list",t.getListBankAc(accNo));
-		//mav.addObject("list",t.getBankAc(accNo));
-		//return mav;
 		int pwd =  Integer.parseInt(req.getParameter("pwd"));
 		String status = req.getParameter("type");
-//		BankAc b= new BankAc();
-//		b.setAcctId(accNo);
-//		b.setAcctStatus(status);
-//		b.setBalance(pwd);
-//		t.addAc(b);
-
 		map.addAttribute("accId",accNo);
-
 		map.addAttribute("balance",pwd);
 
 	//	map.addAttribute("accNo",accNo);
@@ -119,7 +140,7 @@ public class MyController {
 		 //return uName;
 		return "singleaccount";
 	}
-	
+	// show all
 	@RequestMapping(value= {"/alllist","/allaccount"})
 	public ModelAndView showAllAc() {
 		ModelAndView mav = new ModelAndView("allaccount");
@@ -127,39 +148,14 @@ public class MyController {
 		return mav;
 	}
 	
-//	@GetMapping("/account")
-//	public List<BankAc> getListBankAc(){
-//		return this.t.getListBankAc();
-//	}
-	
-//	@RequestMapping(value="/user",method=RequestMethod.GET)
-//	public String single(Model mp) {
-//		int accNo;
-//		mp.addAttribute("e",accNo);
-//		return "singleinput";
-//	}
+
 	@RequestMapping("/account/{id}")
 	public ModelAndView gtAc(@PathVariable int id) {
 		ModelAndView mav = new ModelAndView("singleaccount");
 		mav.addObject("single",t.getBankAc(id));
 		return mav;
 	}
-//	@RequestMapping("/singleinput")
-//	public ModelAndView wdr(@ModelAttribute("e")  int e) {
-//		int accNo = e.getAcctId();
-//		//int accNo= Integer.parseInt(req.getParameter("uname"));
-//		//System.out.println(req.getParameter("uname"));
-//		//String pwd = req.getParameter("pwd");
-//		//int amt = Integer.parseInt(req.getParameter("amt"));
-//		ModelAndView mav = new ModelAndView("singleaccount");
-//		mav.addObject("single",t.getBankAc(accNo));
-//		return mav;
-//		
-//	}
-//	@GetMapping("/accounts/{accNo}")
-//	public BankAc getAc(@PathVariable int accNo){
-//		return this.t.getBankAc(accNo);
-//	}
+
 	@RequestMapping(value="/account/withdraw",method=RequestMethod.GET)
 	public String wdrpge() {
 		return "wdrpage1";

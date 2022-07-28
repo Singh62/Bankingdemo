@@ -14,4 +14,5 @@ public interface BankService {
 	public int balCheck(int accNo);
 	public BankAc withdrawalAc(int accNo,int bal);
 	public void depositAc(int accNo,int amt);
+	public boolean valid(int accNo,int pin);
 }

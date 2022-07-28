@@ -9,19 +9,22 @@
 </head>
 <body>
 <h1> List of All Accounts</h1>
-
+<br><br>
+<a href="/">Home</a>
 <table border="1">
 	<tr>
 			<th>Account No: </th>
 			<th> Balance : </th>
-			<th> Type : </th>
+			<th> Pin :</th>
+			<th> Account Holder : </th>
 	</tr>
 	
 	<c:forEach items="${list}" var="e">
 		<tr>
 			<td>${e.acctId}</td>
 			<td>${e.balance}</td>
-			<td>${e.acctStatus}</td>
+			<td>${e.pin}</td>
+			<td>${e.accHolder}</td>
 		</tr>
 	</c:forEach>
 </table>

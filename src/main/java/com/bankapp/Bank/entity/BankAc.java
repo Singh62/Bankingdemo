@@ -5,21 +5,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="BankAc")
+@Table(name="Bankdb")
 public class BankAc {
 	@Id
 	private int acctId;
 	private int balance;
-	private String acctStatus;
+	private int pin;
+	private String accHolder;
 	public BankAc() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BankAc(int acctId, int balance, String acctStatus) {
+	public BankAc(int acctId, int balance, int pin, String accHolder) {
 		super();
 		this.acctId = acctId;
 		this.balance = balance;
-		this.acctStatus = acctStatus;
+		this.pin = pin;
+		this.accHolder = accHolder;
 	}
 	public int getAcctId() {
 		return acctId;
@@ -33,12 +35,17 @@ public class BankAc {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-	public String getAcctStatus() {
-		return acctStatus;
+	public int getPin() {
+		return pin;
 	}
-	public void setAcctStatus(String acctStatus) {
-		this.acctStatus = acctStatus;
+	public void setPin(int pin) {
+		this.pin = pin;
 	}
-	
+	public String getAccHolder() {
+		return accHolder;
+	}
+	public void setAccHolder(String accHolder) {
+		this.accHolder = accHolder;
+	}
 	
 }

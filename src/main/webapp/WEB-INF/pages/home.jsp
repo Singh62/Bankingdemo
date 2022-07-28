@@ -14,7 +14,7 @@
 		<li><a href="/xyz">Show Balance</a></li>
 		<li><a href="/withdraw">Withdraw</a></li>
 		<li><a href="/deposit">Deposit</a></li>
-		
+		<li><a href="/add">add entry</a></li>
 		</ol>
 </body>
 </html>
