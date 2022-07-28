@@ -19,8 +19,8 @@ public class BankServiceImpl implements BankService {
 	
 	 public BankServiceImpl() {
 		// TODO Auto-generated constructor stub
-		 list = new ArrayList<>();
-		 list.add(new BankAc(111,10000,"Saving"));
+		// list = new ArrayList<>();
+		 //list.add(new BankAc(111,10000,"Saving"));
 	}	
 		
 	
@@ -32,13 +32,24 @@ public class BankServiceImpl implements BankService {
 		return r.findAll();
 	}
 	@Override
+	public List<BankAc> getListBankAc(int accNo) {
+		// TODO Auto-generated method stub
+	//	List<Integer> list1;
+		// list1 = new ArrayList<>();
+		//list1.add(accNo);
+		//return list1;
+		return r.findAll();
+		//return r.findAll();
+	}
+	@Override
 	public BankAc getBankAc(int accNo) {
-		for(BankAc l: list) {
-			if(l.getAcctId()==accNo) {
-				return l;
-			}
-		}
-		return null;
+//		for(BankAc l: list) {
+//			if(l.getAcctId()==accNo) {
+//				return l;
+//			}
+//		}
+		
+		return r.findById(accNo).get();
 	}
 	@Override
 	public void addAc(BankAc b) {
@@ -56,13 +67,14 @@ public class BankServiceImpl implements BankService {
 		return bal;
 	}
 	@Override
-	public void withdrawalAc(int accNo,int amt) {
+	public BankAc withdrawalAc(int accNo,int amt) {
 		BankAc x=r.findById(accNo).get();
 		if(x.getBalance()>amt) {
 			int bal=x.getBalance()-amt;
 			x.setBalance(bal);
 		}
 		r.save(x);
+		return r.findById(accNo).get();
 //		int bal=-1;
 //		if(balCheck(accNo)<amt) return ;
 //		for(BankAc l: list) {

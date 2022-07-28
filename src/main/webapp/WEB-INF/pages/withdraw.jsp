@@ -7,11 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/login" method="post">
-	username:  <input type="text" name="uname"/><br>
-	<!--  password:  <input type="password" name="pwd"/> <br>
-	type : 	<input type="text" name="type"/> <br> -->
+<form action="/showwithdraw" method="post">
+	userid:  <input type="text" name="uname"/><br>
+	  amt <input type="text" name="amt"/> <br>
+<!--  	type : 	<input type="text" name="type"/> <br> -->
 	<input type=submit value="submit"/>
  	</form>
+
 </body>
 </html>
