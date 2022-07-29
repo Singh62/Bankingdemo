@@ -1,6 +1,6 @@
 package com.bankapp.Bank.services;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,7 @@ public class BankServiceImpl implements BankService {
 	}
 	@Override
 	public BankAc getBankAc(int accNo) {
+		
 		return r.findById(accNo).get();
 	}
 	@Override

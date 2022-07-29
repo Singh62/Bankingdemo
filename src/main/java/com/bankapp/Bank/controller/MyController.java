@@ -49,6 +49,7 @@ public class MyController {
 		Integer amt =b.getBalance();
 		System.out.print(amt);
 		//map.addAttribute("name",uName);
+		map.addAttribute("name",b.getAccHolder());
 		map.addAttribute("bal",amt.toString());
 		return "show";
 	}
